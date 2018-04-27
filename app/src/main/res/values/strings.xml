@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">IoTDomo</string>
+    <string name="access_not_allowed">Access not allowed.</string>
+    <string name="lbl_help">Help</string>
+    <string name="lbl_phone_link">Link</string>
+    <string name="lbl_lock">Smart Lock</string>
+    <string name="lbl_name1">Teresa Aranibar</string>
+    <string name="lbl_name2">Natalia Camacho</string>
+    <string name="msg_help">Help</string>
+    <string name="lbl_serie">Series Fibonacci</string>
+    <string name="bt_save">Save next number</string>
+    <string name="hint_input_number">Number</string>
+    <string name="lbl_game">Game</string>
+    <string name="lbl_image">Image</string>
+    <string name="lbl_patter_lock">Pattern Lock</string>
+    <string name="select_photo">Select a photo</string>
+    <string name="dialog_select_prompt">Choose a picture</string>
+    <string name="dialog_select_camera">Camera</string>
+    <string name="dialog_select_gallery">Gallery</string>
+    <string name="lbl_detect_face">Detect Face</string>
+    <string name="value_null">Cannot transform a null value</string>
+    <string name="lbl_photo">Select Image</string>
+    <string name="lbl_pattern_lock">Draw pattern lock</string>
+    <string name="lbl_pattern_exist">Exists</string>
+    <string name="lbl_pattern_not_exist">Not exists</string>
+    <string name="lbl_pattern_draw">Draw</string>
+    <string name="lbl_pattern_confirm">Confirm</string>
+    <string name="lbl_pattern_wrong">Wrong</string>
+    <string name="lbl_pattern_valid">Valid</string>
+    <string name="lbl_clear">Clear</string>
+    <string name="lbl_draw">Draw</string>
+    <string name="lbl_continue">Next</string>
+    <string name="lbl_training_face">Training Face</string>
 </resources>

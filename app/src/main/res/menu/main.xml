@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--<item
+        android:id="@+id/action_pattern"
+        android:title="@string/lbl_patter_lock"
+        android:icon="@drawable/ic_vpn_key"
+        app:showAsAction="ifRoom" />
+
+
+    <item
+        android:id="@+id/action_fibonacci"
+        android:title="@string/lbl_game"
+        android:icon="@drawable/ic_game"
+        app:showAsAction="ifRoom" />-->
+
+    <item
+        android:id="@+id/action_phone_link"
+        android:title="@string/lbl_phone_link"
+        android:icon="@drawable/ic_phonelink"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_face"
+        android:title="@string/lbl_image"
+        android:icon="@drawable/ic_photo"
+        app:showAsAction="ifRoom" />
+
+    <!--<item
+        android:id="@+id/action_item_help"
+        android:title="@string/lbl_help"
+        android:icon="@drawable/ic_help"
+        app:showAsAction="ifRoom" />-->
+</menu>
