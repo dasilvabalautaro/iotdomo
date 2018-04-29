@@ -58,6 +58,9 @@
                 <data android:mimeType="vnd.android.cursor.dir/image" />
             </intent-filter>
         </activity>
+        <activity android:name=".presentation.view.activity.PatternLockActivity" />
+        <activity android:name=".presentation.view.activity.LockActivity" />
+        <activity android:name=".presentation.view.activity.InitRecognitionActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

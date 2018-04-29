@@ -10,8 +10,8 @@ android {
         multiDexEnabled true
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 4
-        versionName "4.0"
+        versionCode 5
+        versionName "5.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -33,11 +33,6 @@ android {
 
 }
 
-/*cobertura {
-    coverageFormats = [ 'html', 'xml' ]
-}*/
-
-
 dependencies {
     implementation fileTree(include: ['*.jar', '*.so', '*.aar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -46,7 +41,6 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    //androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'com.integreight.onesheeld:sdk:2.2.0'
     implementation "com.google.dagger:dagger:$dagger_version"
@@ -66,16 +60,8 @@ dependencies {
     implementation('com.google.api-client:google-api-client-android:1.23.0') {
         exclude group: 'org.apache.httpcomponents'
     }
-    implementation('com.google.http-client:google-http-client-gson:1.23.0') {
-        exclude group: 'org.apache.httpcomponents'
-    }
-    implementation 'com.google.apis:google-api-services-vision:v1-rev2-1.21.0'
-//    implementation 'com.google.android.gms:play-services:11.8.0'
     implementation 'com.andrognito.patternlockview:patternlockview:1.0.0'
-    /*implementation 'ch.zhaw:facerecognitionlibrary:1.5.3'*/
-    /*if (nativeBuildSystem == 'cmake' || nativeBuildSystem == 'none') {
-        implementation 'org.tensorflow:tensorflow-android:+'
-    }*/
+
     implementation project(':facerecognitionlibrary')
     implementation 'ch.zhaw:opencv:3.2.0'
 }

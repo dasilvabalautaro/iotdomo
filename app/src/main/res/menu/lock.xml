@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_phone_link"
+        android:title="@string/lbl_phone_link"
+        android:icon="@drawable/ic_phonelink"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_add_face"
+        android:title="@string/lbl_detect_face"
+        android:icon="@drawable/ic_photo"
+        app:showAsAction="ifRoom" />
+
+</menu>

@@ -17,7 +17,7 @@ class PatternLockAccess @Inject constructor() {
     init {
         try {
             prefs = PreferenceHelperApp.customPrefs(context,
-                    Constants.PREFERENCE_TREBOL)
+                    Constants.PREFERENCE_IOTDOMO)
 
         }catch (ie: IllegalStateException){
             val patternKey: String? = prefs?.get(Constants.PATTERN_KEY, "")
@@ -26,10 +26,12 @@ class PatternLockAccess @Inject constructor() {
 
     fun clearPatternKey(){
         prefs?.set(Constants.PATTERN_KEY, "")
+        prefs?.set(Constants.REGISTER_PATTERN, false)
     }
 
     fun setPatternKey(pattern: String){
         prefs?.set(Constants.PATTERN_KEY, pattern)
+        prefs?.set(Constants.REGISTER_PATTERN, true)
     }
 
     fun isExistPattern(): Boolean{
@@ -39,22 +41,6 @@ class PatternLockAccess @Inject constructor() {
     fun compare(pattern: String): Boolean{
         val patterKey = prefs?.get(Constants.PATTERN_KEY, "")
         return !patterKey.isNullOrEmpty() && patterKey == pattern
-    }
-
-    fun isExistFibonacci(): Boolean{
-        return !prefs?.get(Constants.SERIES_FIBONACCI, "").isNullOrEmpty()
-    }
-
-    fun clearFibonacciKey(){
-        prefs?.set(Constants.SERIES_FIBONACCI, "")
-    }
-
-    fun setFibonacciKey(pattern: String){
-        prefs?.set(Constants.SERIES_FIBONACCI, pattern)
-    }
-
-    fun getFibonacciKey(): String?{
-        return prefs?.get(Constants.SERIES_FIBONACCI, "")
     }
 
     fun setFaceSize(size: Int){

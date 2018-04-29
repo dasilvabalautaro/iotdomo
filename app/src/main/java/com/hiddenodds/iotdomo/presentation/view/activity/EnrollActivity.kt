@@ -42,7 +42,7 @@ class EnrollActivity: AppCompatActivity(),
     private var timerDiff: Long = 500
     private var lastTime: Long = 0
     private var method = 0
-    private val nameImage = "img_enroll"
+    private var nameImage = ""
     private var total = 0
     private var night_portrait: Boolean = false
 
@@ -50,6 +50,8 @@ class EnrollActivity: AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.view_enroll)
         ButterKnife.bind(this)
+        val intentData = intent
+        nameImage = intentData.getStringExtra("Name")
         lastTime = Date().time
         fileHelper = FileHelper()
 
@@ -62,8 +64,10 @@ class EnrollActivity: AppCompatActivity(),
         exposure_compensation = Integer.valueOf(sharedPref
                 .getString("key_exposure_compensation", "20")!!)
 
-        timerDiff = Integer.valueOf(sharedPref.getString("key_timerDiff", "500")!!).toLong()
-        numberOfPictures = Integer.valueOf(sharedPref.getString("key_numberOfPictures", "100")!!)
+        timerDiff = Integer.valueOf(sharedPref.getString("key_timerDiff",
+                "500")!!).toLong()
+        numberOfPictures = Integer.valueOf(sharedPref
+                .getString("key_numberOfPictures", "100")!!)
 
         if (front_camera){
             enrollView!!.setCameraIndex(CameraBridgeViewBase.CAMERA_ID_FRONT)
@@ -73,12 +77,11 @@ class EnrollActivity: AppCompatActivity(),
 
         enrollView!!.visibility = SurfaceView.VISIBLE
         enrollView!!.setCvCameraViewListener(this)
-        val maxCameraViewWidth = Integer.parseInt(sharedPref.getString("key_maximum_camera_view_width", "640")!!)
-        val maxCameraViewHeight = Integer.parseInt(sharedPref.getString("key_maximum_camera_view_height", "480")!!)
+        val maxCameraViewWidth = Integer.parseInt(sharedPref
+                .getString("key_maximum_camera_view_width", "640")!!)
+        val maxCameraViewHeight = Integer.parseInt(sharedPref
+                .getString("key_maximum_camera_view_height", "480")!!)
         enrollView!!.setMaxFrameSize(maxCameraViewWidth, maxCameraViewHeight)
-
-       /* val prefs = PreferenceHelperApp.defaultPrefs(applicationContext)
-        prefs["key_faceSize"] = "200"*/
 
     }
 
@@ -146,7 +149,7 @@ class EnrollActivity: AppCompatActivity(),
                     }
                     total++
                     if (total == numberOfPictures){
-                        this.navigate<MainActivity>()
+                        this.navigate<InitRecognitionActivity>()
                         this.finish()
                     }
                 }

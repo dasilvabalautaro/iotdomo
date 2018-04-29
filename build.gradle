@@ -19,9 +19,6 @@ buildscript {
 allprojects {
     repositories {
         google()
-        /*maven {
-            url "http://dl.bintray.com/qualeams/Android-Face-Recognition-Deep-Learning-Library"
-        }*/
         jcenter()
     }
 }

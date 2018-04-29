@@ -1,6 +1,7 @@
 package com.hiddenodds.iotdomo.dagger
 
 import android.support.v7.app.AppCompatActivity
+import com.hiddenodds.iotdomo.model.executor.PatternLockAccess
 import com.hiddenodds.iotdomo.model.interfaces.IBoard
 import com.hiddenodds.iotdomo.tool.ManageImages
 import com.hiddenodds.iotdomo.tool.OneSheeld
@@ -28,4 +29,8 @@ class ActivityModule(private val activity:
         return ManageImages(activity)
     }
 
+    @Provides
+    fun providePatternLockAccess(): PatternLockAccess {
+        return PatternLockAccess()
+    }
 }

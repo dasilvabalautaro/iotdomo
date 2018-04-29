@@ -2,6 +2,7 @@ package com.hiddenodds.iotdomo.presentation.view.activity
 
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
@@ -18,6 +19,9 @@ import ch.zhaw.facerecognitionlibrary.PreProcessor.PreProcessorFactory
 import ch.zhaw.facerecognitionlibrary.Recognition.Recognition
 import ch.zhaw.facerecognitionlibrary.Recognition.RecognitionFactory
 import com.hiddenodds.iotdomo.R
+import com.hiddenodds.iotdomo.tool.Constants
+import com.hiddenodds.iotdomo.tool.PreferenceHelperApp
+import com.hiddenodds.iotdomo.tool.PreferenceHelperApp.set
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.async
 import org.opencv.android.OpenCVLoader
@@ -52,17 +56,18 @@ class TrainingActivity: AppCompatActivity() {
         PreferenceManager.setDefaultValues(this,
                 ch.zhaw.facerecognitionlibrary.R.xml.preferences, false)
 
-        /*val prefs = PreferenceHelperApp.defaultPrefs(applicationContext)
-        prefs["key_faceSize"] = "160"
-        prefs["key_classification_method"] = "TensorFlow with SVM or KNN"*/
-        //TensorFlow with SVM or KNN  Eigenfaces with NN
-
     }
+
+    private inline fun <reified T : Activity> Activity.navigate() {
+        val intent = Intent(this, T::class.java)
+        startActivity(intent)
+    }
+
     private fun Activity.toast(message: CharSequence) =
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
-
     private fun training(){
+        var flag = false
         val preProcessor = PreProcessorFactory(applicationContext)
         val preferenceHelper = PreferencesHelper(applicationContext)
         val algorithm = preferenceHelper.classificationMethod
@@ -131,8 +136,12 @@ class TrainingActivity: AppCompatActivity() {
                     }
                 }
             }
+            flag = true
             if (recognition!!.train()){
                 runOnUiThread({
+                    val prefs = PreferenceHelperApp.customPrefs(this,
+                            Constants.PREFERENCE_IOTDOMO)
+                    prefs[Constants.REGISTER_FACE] = true
                     toast("Training successful")
                 })
             }else{
@@ -141,8 +150,17 @@ class TrainingActivity: AppCompatActivity() {
                 })
 
             }
+
+
         }
 
+        runOnUiThread({
+            if (!flag){
+                toast("Image not found")
+            }
+            this.navigate<InitRecognitionActivity>()
+            this.finish()
+        })
 
     }
 }

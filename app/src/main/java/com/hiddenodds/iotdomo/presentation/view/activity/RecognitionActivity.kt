@@ -1,5 +1,7 @@
 package com.hiddenodds.iotdomo.presentation.view.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
@@ -14,6 +16,9 @@ import ch.zhaw.facerecognitionlibrary.PreProcessor.PreProcessorFactory
 import ch.zhaw.facerecognitionlibrary.Recognition.Recognition
 import ch.zhaw.facerecognitionlibrary.Recognition.RecognitionFactory
 import com.hiddenodds.iotdomo.R
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.runBlocking
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.android.OpenCVLoader
 import org.opencv.core.Core
@@ -40,11 +45,15 @@ class RecognitionActivity: AppCompatActivity(),
     private var night_portrait: Boolean = false
     private var exposure_compensation: Int = 50
     private var faceSize = 160
+    private var flagOut = 0
+    private var guide = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(R.layout.view_recognition)
         ButterKnife.bind(this)
+        val intentData = intent
+        guide = intentData.getStringExtra("guide")
         fileHelper = FileHelper()
 
         preProcessor = PreProcessorFactory(applicationContext)
@@ -72,49 +81,23 @@ class RecognitionActivity: AppCompatActivity(),
 
         cvRecognition!!.visibility = SurfaceView.VISIBLE
         cvRecognition!!.setCvCameraViewListener(this)
-        val maxCameraViewWidth = Integer.parseInt(sharedPref.getString("key_maximum_camera_view_width", "640")!!)
-        val maxCameraViewHeight = Integer.parseInt(sharedPref.getString("key_maximum_camera_view_height", "480")!!)
+        val maxCameraViewWidth = Integer.parseInt(sharedPref
+                .getString("key_maximum_camera_view_width", "640")!!)
+        val maxCameraViewHeight = Integer.parseInt(sharedPref
+                .getString("key_maximum_camera_view_height", "480")!!)
         cvRecognition!!.setMaxFrameSize(maxCameraViewWidth, maxCameraViewHeight)
 
     }
 
     override fun onResume() {
         super.onResume()
-        /*val prefs = PreferenceHelperApp.defaultPrefs(applicationContext)
-        prefs["key_classification_method"] = "TensorFlow with SVM or KNN"
-        prefs["key_faceSize"] = "160"
-        faceSize = prefs.getString("key_faceSize", "160").toInt()*/
 
-        val t = Thread(Runnable {
-            /*val preferenceHelper = PreferencesHelper(applicationContext)
-            val algorithm = preferenceHelper.classificationMethod*/
-            val sharedPref = PreferenceManager
-                    .getDefaultSharedPreferences(applicationContext)
-            val algorithm = sharedPref
-                    .getString("key_classification_method",
-                            resources.getString(R.string.eigenfaces))
-            recognition = RecognitionFactory
-                    .getRecognitionAlgorithm(applicationContext,
-                            Recognition.RECOGNITION, algorithm)
-        })
-
-        t.start()
-
-        // Wait until Eigenfaces loading thread has finished
-        try {
-            t.join()
-        } catch (e: InterruptedException) {
-            println(e.message)
-        }
-
-        cvRecognition!!.enableView()
-
-        //executeDetect()
+        executeDetect()
 
     }
-   /* fun executeDetect() =  runBlocking{
+   private fun executeDetect() =  runBlocking{
 
-        val request = launch {
+        val request = async(CommonPool) {
             val sharedPref = PreferenceManager
                     .getDefaultSharedPreferences(applicationContext)
             val algorithm = sharedPref
@@ -128,7 +111,7 @@ class RecognitionActivity: AppCompatActivity(),
         request.join()
 
         cvRecognition!!.enableView()
-    }*/
+    }
 
     override fun onPause() {
         super.onPause()
@@ -137,6 +120,11 @@ class RecognitionActivity: AppCompatActivity(),
         }
     }
 
+
+    private inline fun <reified T : Activity> Activity.navigate() {
+        val intent = Intent(this, T::class.java)
+        startActivity(intent)
+    }
 
 
     override fun onCameraViewStarted(width: Int, height: Int) {
@@ -147,7 +135,6 @@ class RecognitionActivity: AppCompatActivity(),
                 0 <= exposure_compensation && exposure_compensation <= 100)
             cvRecognition!!.setExposure(exposure_compensation)
     }
-
 
     override fun onCameraViewStopped() {
 
@@ -184,6 +171,23 @@ class RecognitionActivity: AppCompatActivity(),
                     MatOperation.drawRectangleAndLabelOnPreview(imgRgba,
                             faces[i], recognition!!
                             .recognize(images[i], ""), front_camera)
+
+                    if (flagOut == 2){
+                        runOnUiThread({
+                            if (guide == "1"){
+                                this.navigate<InitRecognitionActivity>()
+                                this.finish()
+                            }
+                            if (guide == "2"){
+                                this.navigate<LockActivity>()
+                                this.finish()
+                            }
+
+                        })
+                        break
+                    }
+                    flagOut++
+
                 }catch (ex: Exception){
                     println(ex.message)
                 }

@@ -2,33 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--<item
-        android:id="@+id/action_pattern"
-        android:title="@string/lbl_patter_lock"
-        android:icon="@drawable/ic_vpn_key"
-        app:showAsAction="ifRoom" />
-
-
     <item
-        android:id="@+id/action_fibonacci"
-        android:title="@string/lbl_game"
-        android:icon="@drawable/ic_game"
-        app:showAsAction="ifRoom" />-->
-
-    <item
-        android:id="@+id/action_phone_link"
-        android:title="@string/lbl_phone_link"
-        android:icon="@drawable/ic_phonelink"
+        android:id="@+id/action_register"
+        android:title="@string/lbl_register"
+        android:icon="@drawable/ic_register"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_face"
-        android:title="@string/lbl_image"
+        android:id="@+id/action_access_face"
+        android:title="@string/lbl_detect_face"
         android:icon="@drawable/ic_photo"
         app:showAsAction="ifRoom" />
 
-    <!--<item
-        android:id="@+id/action_item_help"
-        android:title="@string/lbl_help"
-        android:icon="@drawable/ic_help"
-        app:showAsAction="ifRoom" />-->
+    <item
+        android:id="@+id/action_access_pattern"
+        android:title="@string/lbl_pattern"
+        android:icon="@drawable/ic_pattern"
+        app:showAsAction="ifRoom" />
 </menu>
