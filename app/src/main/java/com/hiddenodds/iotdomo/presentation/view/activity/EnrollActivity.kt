@@ -149,8 +149,12 @@ class EnrollActivity: AppCompatActivity(),
                     }
                     total++
                     if (total == numberOfPictures){
-                        this.navigate<InitRecognitionActivity>()
-                        this.finish()
+                        val intent = Intent(this, InitRecognitionActivity::class.java)
+                        intent.putExtra("training", "1")
+                        startActivity(intent)
+                        finish()
+                        /*this.navigate<InitRecognitionActivity>()
+                        this.finish()*/
                     }
                 }
             }

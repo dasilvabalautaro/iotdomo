@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#68637d</color>
-    <color name="colorPrimaryDark">#3d3951</color>
-    <color name="colorAccent">#b2adb5</color>
-    <color name="colorSecondary">#c29c70</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#0D47A1</color>
+    <color name="colorAccent">#2962FF</color>
+    <color name="colorSecondary">#E3F2FD</color>
     <color name="mine_shaft">#303030</color>
 </resources>

@@ -20,6 +20,7 @@ import com.hiddenodds.iotdomo.App
 import com.hiddenodds.iotdomo.R
 import com.hiddenodds.iotdomo.dagger.ActivityModule
 import com.hiddenodds.iotdomo.model.executor.PatternLockAccess
+import org.jetbrains.anko.alert
 import javax.inject.Inject
 
 class PatternLockActivity: AppCompatActivity(){
@@ -142,6 +143,13 @@ class PatternLockActivity: AppCompatActivity(){
             println("Pattern has been cleared")
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        this.navigate<MainActivity>()
+        this.finish()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.pattern, menu)
 
@@ -152,17 +160,23 @@ class PatternLockActivity: AppCompatActivity(){
         val id = item!!.itemId
 
         if (id == R.id.action_clear){
-            patternLockAccess.clearPatternKey()
-            plAccess!!.clearPattern()
-            btClear!!.visibility = View.VISIBLE
-            btClear!!.tag = 0
-            patter = ""
+            alert("El patrón de seguridad será eliminado.") {
+                title = "Alerta"
+                positiveButton("Confirmar") {
+                    patternLockAccess.clearPatternKey()
+                    plAccess!!.clearPattern()
+                    btClear!!.visibility = View.VISIBLE
+                    btClear!!.tag = 0
+                    patter = ""
+                }
+                negativeButton("Cancelar") {}
+            }.show()
         }
 
         return super.onOptionsItemSelected(item)
     }
 
-    inline fun <reified T : Activity> Activity.navigate() {
+    private inline fun <reified T : Activity> Activity.navigate() {
         val intent = Intent(this, T::class.java)
         startActivity(intent)
     }

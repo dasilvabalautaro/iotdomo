@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">IoTDomo</string>
+    <string name="app_name">Cerradura Inteligente</string>
     <string name="access_not_allowed">Acceso no permitido.</string>
     <string name="lbl_help">Ayuda</string>
     <string name="lbl_phone_link">Enlace</string>
@@ -8,11 +8,9 @@
     <string name="lbl_name1">Teresa Aranibar</string>
     <string name="lbl_name2">Natalia Camacho</string>
     <string name="msg_help">Ayuda</string>
-    <string name="lbl_serie">Serie de Fibonacci</string>
     <string name="bt_save">Verificar número</string>
     <string name="lbl_register">Registro</string>
     <string name="lbl_pattern">Patrón</string>
-    <string name="hint_input_number">Número</string>
     <string name="lbl_game">Juego</string>
     <string name="lbl_image">Imagen</string>
     <string name="lbl_patter_lock">Patrón de Bloqueo</string>
@@ -32,10 +30,11 @@
     <string name="lbl_pattern_valid">Valido</string>
     <string name="lbl_name_person">Nombre por favor..</string>
     <string name="lbl_clear">Cancelar</string>
-    <string name="lbl_repeat">Reintentar</string>
+    <string name="lbl_repeat">Repetir</string>
     <string name="lbl_draw">Dibujar</string>
     <string name="lbl_continue">Confirme</string>
     <string name="lbl_training_face">Entrenamiento</string>
+    <string name="lbl_board_initialized">Tarjeta ya fue inicializada.</string>
     <string name="lbl_test_face">Prueba</string>
     <string name="lbl_configuration">Configuración</string>
     <string name="lbl_wrong_pattern">Error: Patrones diferentes.</string>

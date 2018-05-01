@@ -11,4 +11,6 @@ interface IBoard {
     fun connect()
     fun digitalWrite(index: Int)
     fun disconnect()
+    fun permissionLocation(): Boolean
+    fun ifSelectedScannedDevice(): Boolean
 }

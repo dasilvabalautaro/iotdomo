@@ -1,5 +1,6 @@
 package com.hiddenodds.iotdomo.dagger
 
+import com.hiddenodds.iotdomo.presentation.view.activity.InitRecognitionActivity
 import com.hiddenodds.iotdomo.presentation.view.activity.LockActivity
 import com.hiddenodds.iotdomo.presentation.view.activity.MainActivity
 import com.hiddenodds.iotdomo.presentation.view.activity.PatternLockActivity
@@ -10,4 +11,5 @@ interface ActivityComponent {
     fun inject(mainActivity: MainActivity)
     fun inject(patternLockActivity: PatternLockActivity)
     fun inject(lockActivity: LockActivity)
+    fun inject(initRecognitionActivity: InitRecognitionActivity)
 }

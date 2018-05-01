@@ -78,13 +78,14 @@ class ManageImages @Inject constructor(private val activity:
                             .permissionGranted(requestCode,
                                     CAMERA_PERMISSIONS_REQUEST,
                                     grantResults)) {
-                startCamera()
+                //startCamera()
+                println("Permission Ok")
             }
             GALLERY_PERMISSIONS_REQUEST -> if (permissionUtils
                             .permissionGranted(requestCode,
                                     GALLERY_PERMISSIONS_REQUEST,
                                     grantResults)) {
-                startGalleryChooser()
+                println("Permission Ok")
             }
         }
     }

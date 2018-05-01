@@ -210,6 +210,13 @@ class OneSheeld @Inject constructor(private val activity:
 
     }
 
+    override fun permissionLocation():Boolean{
+        return permissionUtils
+                .requestPermission(activity,
+                        LOCATION_PERMISSION_REQUEST_CODE,
+                        Manifest.permission.ACCESS_COARSE_LOCATION)
+    }
+
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<out String>,
                                             grantResults: IntArray) {
@@ -233,6 +240,10 @@ class OneSheeld @Inject constructor(private val activity:
         if (oneSheeldScannedDevices.isNotEmpty()){
             selectedScannedDevice = oneSheeldScannedDevices[index]
         }
+    }
+
+    override fun ifSelectedScannedDevice(): Boolean {
+        return (selectedScannedDevice != null)
     }
 
     override fun connect() {

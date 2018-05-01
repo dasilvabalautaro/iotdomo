@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.hiddenodds.iotdomo.App
 import com.hiddenodds.iotdomo.R
 import com.hiddenodds.iotdomo.dagger.ActivityModule
+import com.hiddenodds.iotdomo.model.interfaces.IBoard
 import com.hiddenodds.iotdomo.tool.Constants
 import com.hiddenodds.iotdomo.tool.ManageImages
 import com.hiddenodds.iotdomo.tool.PreferenceHelperApp
@@ -37,6 +38,8 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var manageImages: ManageImages
+    @Inject
+    lateinit var board: IBoard
 
     init {
         observableImage
@@ -97,7 +100,9 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
             negativeButton(R.string.lbl_detect_face) {
-                navigate<InitRecognitionActivity>()
+                val intent = Intent(applicationContext, InitRecognitionActivity::class.java)
+                intent.putExtra("training", "0")
+                startActivity(intent)
                 finish()
             }
             neutralPressed(R.string.lbl_clear){}
@@ -109,7 +114,38 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         if (!manageImages.permissionCamera()){
-            dialogImage()
+            println("Solicitude")
+        }
+        if (!board.permissionLocation()){
+            println("Solicitude")
+        }
+    }
+
+    override fun onDestroy() {
+        board.disconnect()
+        super.onDestroy()
+
+    }
+
+    private fun optionAccessFace(){
+        try {
+            val prefs = PreferenceHelperApp.customPrefs(this,
+                    Constants.PREFERENCE_IOTDOMO)
+            val registerFace: Boolean? = prefs[Constants.REGISTER_FACE, false]
+            if (registerFace != null && registerFace){
+                val intent = Intent(this, RecognitionActivity::class.java)
+                intent.putExtra("before", "1")
+                startActivity(intent)
+                this.finish()
+            }else{
+                val intent = Intent(applicationContext, InitRecognitionActivity::class.java)
+                intent.putExtra("training", "0")
+                startActivity(intent)
+                finish()
+            }
+
+        }catch (ie: IllegalStateException){
+            println(ie.message)
         }
     }
 
@@ -121,10 +157,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (id == R.id.action_access_face){
-            val intent = Intent(this, RecognitionActivity::class.java)
-            intent.putExtra("guide", "2")
-            startActivity(intent)
-            this.finish()
+            optionAccessFace()
         }
 
         if (id == R.id.action_access_pattern){
@@ -141,7 +174,6 @@ class MainActivity : AppCompatActivity() {
         android.os.Process.killProcess(android.os.Process.myPid())
 
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -161,7 +193,6 @@ class MainActivity : AppCompatActivity() {
             this.observableImage.onNext(this.image!!)
 
         }
-
     }
 
     private fun dialogImage(){

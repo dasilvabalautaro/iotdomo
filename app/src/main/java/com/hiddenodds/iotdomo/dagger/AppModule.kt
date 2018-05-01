@@ -18,4 +18,5 @@ class AppModule(private val app: App) {
     fun provideLocaleConfiguration(): LocaleUtils{
         return LocaleUtils()
     }
+
 }

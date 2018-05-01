@@ -31,7 +31,7 @@
         android:theme="@style/AppTheme"
         android:fullBackupContent="@xml/backup_descriptor"
         tools:ignore="GoogleAppIndexingWarning">
-        <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="face"/>
+        <!--<meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="face"/>-->
         <activity
             android:name=".presentation.view.activity.MainActivity"
             android:screenOrientation="portrait">
@@ -50,13 +50,13 @@
         <activity android:name=".presentation.view.activity.RecognitionActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-            <intent-filter tools:ignore="AppLinkUrlError">
+            <!--<intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data android:mimeType="vnd.android.cursor.dir/image" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity android:name=".presentation.view.activity.PatternLockActivity" />
         <activity android:name=".presentation.view.activity.LockActivity" />

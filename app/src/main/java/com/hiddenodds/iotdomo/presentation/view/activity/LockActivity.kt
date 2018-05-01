@@ -20,36 +20,33 @@ import com.hiddenodds.iotdomo.model.interfaces.IBoard
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.yesButton
-import java.lang.IllegalStateException
 import javax.inject.Inject
 
 
 class LockActivity: AppCompatActivity() {
+    var flagConnect = false
     @BindView(R.id.pb_connect)
     @JvmField var pbConnect: ProgressBar? = null
-    @BindView(R.id.ib_unlock)
-    @JvmField var ibUnlock: ImageButton? = null
     @BindView(R.id.ib_lock)
     @JvmField var ibLock: ImageButton? = null
-    @OnClick(R.id.ib_unlock)
-    fun unLock(){
-        digitalWrite(13)
-        ibUnlock!!.isEnabled = false
-        ibLock!!.isEnabled = true
-        ibUnlock!!.setImageDrawable(getDrawable(R.drawable.n_unlock_android))
-        ibLock!!.setImageDrawable(getDrawable(R.drawable.lock_android))
-    }
+
     @OnClick(R.id.ib_lock)
     fun lock(){
-        digitalWrite(12)
-        ibUnlock!!.isEnabled = true
-        ibLock!!.isEnabled = false
-        ibUnlock!!.setImageDrawable(getDrawable(R.drawable.unlock_android))
-        ibLock!!.setImageDrawable(getDrawable(R.drawable.n_lock_android))
+
+        if (board.ifSelectedScannedDevice()){
+            if (!flagConnect){
+                flagConnect = true
+                board.connect()
+            }
+
+            buttonManagement()
+            digitalWrite(12)
+        }
 
     }
 
@@ -64,7 +61,6 @@ class LockActivity: AppCompatActivity() {
 
     private var disposable: CompositeDisposable = CompositeDisposable()
     private var itemMenuConnect: MenuItem? = null
-    private var flag = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +78,10 @@ class LockActivity: AppCompatActivity() {
         disposable.add(message.observeOn(AndroidSchedulers.mainThread())
                 .subscribe { m ->
                     kotlin.run {
-                        toast(m)
+                        if (m.length > 10){
+                            toast(m)
+                        }
+
                         pbConnect!!.visibility = View.INVISIBLE
 
                     }
@@ -91,16 +90,20 @@ class LockActivity: AppCompatActivity() {
         disposable.add(list.observeOn(AndroidSchedulers.mainThread())
                 .subscribe { l ->
                     kotlin.run {
+                        pbConnect!!.visibility = View.INVISIBLE
                         if (l.isNotEmpty()){
                             board.selectDevice(0)
-                            board.connect()
+
                             alert(l[0]) {
                                 title = "Alert"
                                 yesButton {
+
                                     toast("Yess!!!")
                                 }
                             }.show()
 
+                        }else{
+                            toast("Not devices.")
                         }
 
                     }
@@ -110,17 +113,30 @@ class LockActivity: AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        ibUnlock!!.visibility = View.VISIBLE
-        ibLock!!.visibility = View.VISIBLE
-        try {
-            ibUnlock!!.setImageDrawable(getDrawable(R.drawable.n_lock_android))
 
-        }catch (ie: IllegalStateException){
-            println("Error: set image")
-        }
-        ibUnlock!!.isEnabled = false
+        flagConnect = false
         scanDevices()
-        flag = false
+        ibLock!!.visibility = View.VISIBLE
+        ibLock!!.tag = 0
+        ibLock!!.setImageDrawable(getDrawable(R.drawable.lock_android))
+        ibLock!!.isEnabled = true
+
+    }
+
+    private fun buttonManagement(){
+        when(ibLock!!.tag){
+            0 -> {
+                ibLock!!.tag = 1
+                ibLock!!.isEnabled = false
+                ibLock!!.setImageDrawable(getDrawable(R.drawable.unlock_android))
+            }
+            1 -> {
+                ibLock!!.tag = 0
+                ibLock!!.isEnabled = true
+                ibLock!!.setImageDrawable(getDrawable(R.drawable.lock_android))
+
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -132,7 +148,7 @@ class LockActivity: AppCompatActivity() {
     private fun scanDevices(){
         pbConnect!!.visibility = View.VISIBLE
 
-        launch(CommonPool){
+        async(CommonPool){
             board.scanDevices()
         }
     }
@@ -141,26 +157,35 @@ class LockActivity: AppCompatActivity() {
         val id = item!!.itemId
 
         if (id == R.id.action_phone_link){
-            scanDevices()
+            if (board.ifSelectedScannedDevice()){
+                toast(getString(R.string.lbl_board_initialized))
+            }else{
+                scanDevices()
+            }
+
         }
 
         if (id == R.id.action_add_face){
-            flag = true
-            this.navigate<InitRecognitionActivity>()
+            val intent = Intent(this, InitRecognitionActivity::class.java)
+            intent.putExtra("training", "0")
+            startActivity(intent)
             this.finish()
+
         }
 
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onPause() {
-        super.onPause()
-        board.disconnect()
-        if (!flag){
-            this.navigate<MainActivity>()
-            this.finish()
-        }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        this.navigate<MainActivity>()
+        this.finish()
+    }
 
+    override fun onDestroy() {
+        board.disconnect()
+        disposable.dispose()
+        super.onDestroy()
     }
 
     private inline fun <reified T : Activity> Activity.navigate() {
@@ -174,8 +199,12 @@ class LockActivity: AppCompatActivity() {
     private fun digitalWrite(led: Int){
         board.digitalWrite(led)
         launch {
-            delay(2000)
+
+            delay(5000)
             board.digitalWrite(led)
+            runOnUiThread({
+                buttonManagement()
+            })
         }
     }
 

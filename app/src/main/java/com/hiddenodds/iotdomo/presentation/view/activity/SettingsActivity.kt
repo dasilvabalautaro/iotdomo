@@ -2,6 +2,7 @@ package com.hiddenodds.iotdomo.presentation.view.activity
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceActivity
@@ -30,7 +31,9 @@ class SettingsActivity: PreferenceActivity() {
             PreferenceManager.setDefaultValues(applicationContext,
                     R.xml.preferences, true)
 
-            Toast.makeText(applicationContext, "Settings have been set to default.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext,
+                    "Settings have been set to default.",
+                    Toast.LENGTH_SHORT).show()
         })
 
         alertDialog!!.setNegativeButton("OK",
@@ -42,5 +45,13 @@ class SettingsActivity: PreferenceActivity() {
                     alertDialog!!.show()
                     return@OnPreferenceClickListener true
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, InitRecognitionActivity::class.java)
+        intent.putExtra("training", "0")
+        startActivity(intent)
+        this.finish()
     }
 }

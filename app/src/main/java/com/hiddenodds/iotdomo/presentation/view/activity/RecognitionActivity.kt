@@ -46,16 +46,15 @@ class RecognitionActivity: AppCompatActivity(),
     private var exposure_compensation: Int = 50
     private var faceSize = 160
     private var flagOut = 0
-    private var guide = ""
+    private var before = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(R.layout.view_recognition)
         ButterKnife.bind(this)
-        val intentData = intent
-        guide = intentData.getStringExtra("guide")
         fileHelper = FileHelper()
-
+        val intentData = intent
+        before = intentData.getStringExtra("before")
         preProcessor = PreProcessorFactory(applicationContext)
         val folder = File(FileHelper.getFolderPath())
         if (folder.mkdir() || folder.isDirectory) {
@@ -91,7 +90,7 @@ class RecognitionActivity: AppCompatActivity(),
 
     override fun onResume() {
         super.onResume()
-
+        flagOut = 0
         executeDetect()
 
     }
@@ -111,7 +110,7 @@ class RecognitionActivity: AppCompatActivity(),
         request.join()
 
         cvRecognition!!.enableView()
-    }
+   }
 
     override fun onPause() {
         super.onPause()
@@ -137,6 +136,25 @@ class RecognitionActivity: AppCompatActivity(),
     }
 
     override fun onCameraViewStopped() {
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        when(before){
+            "1" -> {
+                this.navigate<MainActivity>()
+                this.finish()
+            }
+            "2" -> {
+                this.navigate<InitRecognitionActivity>()
+                this.finish()
+            }
+            else -> {
+                this.navigate<MainActivity>()
+                this.finish()
+            }
+        }
 
     }
 
@@ -172,20 +190,7 @@ class RecognitionActivity: AppCompatActivity(),
                             faces[i], recognition!!
                             .recognize(images[i], ""), front_camera)
 
-                    if (flagOut == 2){
-                        runOnUiThread({
-                            if (guide == "1"){
-                                this.navigate<InitRecognitionActivity>()
-                                this.finish()
-                            }
-                            if (guide == "2"){
-                                this.navigate<LockActivity>()
-                                this.finish()
-                            }
 
-                        })
-                        break
-                    }
                     flagOut++
 
                 }catch (ex: Exception){
@@ -193,6 +198,11 @@ class RecognitionActivity: AppCompatActivity(),
                 }
 
             }
+            if (flagOut >= 2){
+                this.navigate<LockActivity>()
+                this.finish()
+            }
+
             imgRgba
         }
     }

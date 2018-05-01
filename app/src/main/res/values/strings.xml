@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">IoTDomo</string>
+    <string name="app_name">Smart Lock</string>
     <string name="access_not_allowed">Access not allowed.</string>
     <string name="lbl_help">Help</string>
     <string name="lbl_phone_link">Link</string>
@@ -8,9 +8,7 @@
     <string name="lbl_name1">Teresa Aranibar</string>
     <string name="lbl_name2">Natalia Camacho</string>
     <string name="msg_help">Help</string>
-    <string name="lbl_serie">Series Fibonacci</string>
     <string name="bt_save">Save next number</string>
-    <string name="hint_input_number">Number</string>
     <string name="lbl_name_person">Name please.</string>
     <string name="lbl_game">Game</string>
     <string name="lbl_image">Image</string>
@@ -34,8 +32,9 @@
     <string name="lbl_repeat">Repeat</string>
     <string name="lbl_draw">Draw</string>
     <string name="lbl_continue">Confirm</string>
-    <string name="lbl_training_face">Training Face</string>
+    <string name="lbl_training_face">Training</string>
     <string name="lbl_test_face">Test Face</string>
+    <string name="lbl_board_initialized">Target Initialized</string>
     <string name="lbl_configuration">Configuration</string>
     <string name="lbl_wrong_pattern">Wrong Pattern</string>
     <string name="lbl_size_pattern">Length Small</string>
