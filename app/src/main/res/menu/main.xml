@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_register"
+        android:title="@string/lbl_register"
+        android:icon="@drawable/ic_register"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_access_face"
+        android:title="@string/lbl_detect_face"
+        android:icon="@drawable/ic_photo"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_access_pattern"
+        android:title="@string/lbl_pattern"
+        android:icon="@drawable/ic_pattern"
+        app:showAsAction="ifRoom" />
+</menu>

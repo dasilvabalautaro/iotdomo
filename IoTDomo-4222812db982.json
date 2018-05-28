@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "iotdomo-196713",
+  "private_key_id": "4222812db982865814b4e362d8dff84e0739e45f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC/DsCFaCJmAvpk\n51m0LDM3Z70U/FJNZeDKr7A+OrNFTVvNVPzQ+MAilRzFobMlMpqdB3YRhGBqKXRJ\nUwOH2jXOginRZQh195j69BXhT+5ONCLglbb7qLBdJTZUuTVpb9R6wJLXtQs+w7vv\ncYcT+Jv4LnMfZH2NFN+ISVFekfy0Gd41AAhH+aVDpcd36VEVKOA3/Wo6UNiETucE\nipHG7hUDTrlVlHkJda4AEQplXtG5TivBPn9FesHppxftk0IzPacNR6oIybCc1L9A\naz8R2WQJdjp5NUOdIAB20l7j68lmKh5b3QsajuHXgPjsZb/y3hSfUQ0FvoEykUrg\nVk0D7Xx7AgMBAAECggEAXXTAXKFzDhZP2DLIkNb8GJKAjbbdJWn7uvmUiuQY1AIC\nsV5sqmW7Sk9JOy0dHclykvRW3zuzE8sCTGm0dOwa3NCT1w8GQ/og1US3PTblmVBs\nbRIe51v9JRrySCAujcw7ke4IBkbTYNjK4dXVHsJBvPUvr//uYCgBLb+7cziS9Z9H\nQlOx63bI6DN2jD5HrZUtCGq7FqAEt6VZri5i6PvAAV4WeYJ7BK6mgQhek8j8Ytfg\nmaTO2GMlx6zLnKs2Jb1AVvMk6zGfzAHWyH4TgKNedC/a3lTA9OsKVJUrkR7ycEIp\nI/RqAsgD0unOZrcAZ0uQ24l33dlxTOhq1wdTe2fbGQKBgQDisDfvLk2ON8qVshm4\n3MF1wJLk/BzJakbdeB9B753WSgTzZKlMPNVlSxfEiaUUmMd54+bZ7WrgA2WGshTH\nZ8brWaWyndT+b4I9hlogE+28g7Xi6QbO+Z/bIRD/YIULs15Q+X/GdzSQZlhbuHyo\njid9UGzlazmJpb5fUpr8fuzxCQKBgQDXwxgSht3LMt8EfxRS4MZL5YtKIFkgKmvh\nGNGA5uZxdrL3J+d6OAotHnkhWL+WPwyYOf0Ws+as1QvjtFmt5DAs5IdpR0uq9PuB\nN5MRTodZkfFlv4whBgcNrjVbAc5bvJ8kscXwuCWxHVw09DSss+c37DjPtP1HEYMB\neH8cUcmWYwKBgQC8hqF+IZwOcwfgh0YtICskqwt/tMycFe7psUUNqSIzXUvQwB6s\ncMtoepNBuNe50XXUQV10UKdZtnlxFBmD3SLqCJxteCXzlPlUAbBijTBiX4edNv+a\nkrAHpfBk8vizSnFeFqHVhL4KeZNydHP4GoFtDr4B7rLjbxxsWl7bLxQPQQKBgBtl\n2K6xlYRyB0PI50nG5SdKFK/q/6ZH/L7uqdvWdji+O+eKl6g7aX9lOTh0zo9DnlPO\nOUcivQ4BV6sogaLFMSDiPBewR/mDdlRoPDKcaC+FisPC2QZwf4DLOFdAGXYos4Sz\nVlFE8PRWqBjJUc8EYT4GrwghEXBu1tXe+TUdZZ3FAoGBAJkpvlNlNwtnuqznz5Vh\nBUSCsIdV3BIj/7QjJ2d56Nrke8BwhOwM56+L0ooWIkQsIhyyL+53mS9taPT1pqiA\noQPk8jFFKpOrrigR6euGjC8K1y7Umtt2xXL/ayxuI3002AXFCOF6C3hxUfR/4Oid\nHuJsJ7p2NsnHYhQ6/BjYsbb9\n-----END PRIVATE KEY-----\n",
+  "client_email": "recognitionface@iotdomo-196713.iam.gserviceaccount.com",
+  "client_id": "114265326158230368974",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/recognitionface%40iotdomo-196713.iam.gserviceaccount.com"
+}
+
